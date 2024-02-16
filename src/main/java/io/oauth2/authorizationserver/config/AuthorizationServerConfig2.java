@@ -30,9 +30,12 @@ public class AuthorizationServerConfig2 {
     return http.build();
   }
 
+  // Required in configuration
   @Bean
   public ProviderSettings providerSettings() {
-    return ProviderSettings.builder().issuer("http://localhost:9000").build(); // 인가서버 위치
+    // 인가서버 정보는 디폴트가 있을 수 없다
+    // 넣어주지 않으면 요청 URL에서 issuer를 추출한다
+    return ProviderSettings.builder().issuer("http://localhost:9000").build();
   }
 
   @Bean
