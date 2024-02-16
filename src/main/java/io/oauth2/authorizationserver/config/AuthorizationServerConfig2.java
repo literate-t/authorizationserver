@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.server.authorization.config.ClientSet
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@Configuration
+@Configuration
 public class AuthorizationServerConfig2 {
 
   // 이 부분을 config1이랑 중복 설정이 되게 하고 
