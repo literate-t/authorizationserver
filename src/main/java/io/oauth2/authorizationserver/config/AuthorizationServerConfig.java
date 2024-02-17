@@ -9,6 +9,7 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Instant;
 import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,25 +52,36 @@ public class AuthorizationServerConfig {
     return ProviderSettings.builder().issuer("http://localhost:9000").build();
   }
 
+  // Client 등록
   @Bean
   public RegisteredClientRepository repository() {
-    RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-        .clientId("oauth2-client-app")
-        .clientSecret("{noop}secret")
+    RegisteredClient registeredClient1 = getRegisteredClient("oauth2-client-app1", "{noop}secret1", "read", "write");
+    RegisteredClient registeredClient2 = getRegisteredClient("oauth2-client-app2", "{noop}secret2", "read", "delete");
+    RegisteredClient registeredClient3 = getRegisteredClient("oauth2-client-app3", "{noop}secret3", "read", "update");
+
+    return new InMemoryRegisteredClientRepository(registeredClient1, registeredClient2, registeredClient3);
+  }
+
+  private static RegisteredClient getRegisteredClient(String clientId, String clientSecret, String scope1, String scope2) {
+    return RegisteredClient.withId(UUID.randomUUID().toString())
+        .clientId(clientId)
+        .clientName(clientId)
+        .clientSecret(clientSecret)
+        .clientIdIssuedAt(Instant.now())
+        .clientSecretExpiresAt(Instant.MAX)
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
-        .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-        .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
         .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+        .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
         .redirectUri("http://127.0.0.1:8081")
         .scope(OidcScopes.OPENID)
-        .scope("read")
-        .scope("write")
+        .scope(OidcScopes.PROFILE)
+        .scope(OidcScopes.EMAIL)
+        .scope(scope1)
+        .scope(scope2)
         .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
         .build();
-
-    return new InMemoryRegisteredClientRepository(registeredClient);
   }
 
   @Bean
