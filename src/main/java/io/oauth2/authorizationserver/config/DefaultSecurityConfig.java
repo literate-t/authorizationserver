@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.server.authorization.InMemoryOAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -30,5 +32,12 @@ public class DefaultSecurityConfig {
         .build();
 
     return new InMemoryUserDetailsManager(user);
+  }
+
+  // Default로 사용되는 InMemory 방식이지만
+  // 컨트롤러에서 빈을 주입받기 위해 사용자 정의를 다시 해줌
+  @Bean
+  public OAuth2AuthorizationService oAuth2AuthorizationService() {
+    return new InMemoryOAuth2AuthorizationService();
   }
 }
