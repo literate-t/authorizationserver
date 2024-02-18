@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
+import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -48,6 +49,7 @@ public class AppConfig {
         .clientSecretExpiresAt(Instant.MAX)
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
+        .clientAuthenticationMethod(ClientAuthenticationMethod.NONE) // for public client
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
         .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -58,6 +60,7 @@ public class AppConfig {
         .scope(scope1)
         .scope(scope2)
         .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+//        .tokenSettings(TokenSettings.builder().reuseRefreshTokens(false).build())
         .build();
   }
 
