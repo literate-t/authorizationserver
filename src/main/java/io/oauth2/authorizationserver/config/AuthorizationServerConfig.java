@@ -22,13 +22,13 @@ public class AuthorizationServerConfig {
     RequestMatcher endpointsMatcher = authorizationServerConfigurer
         .getEndpointsMatcher();
 
-    authorizationServerConfigurer.authorizationEndpoint(
-        authEndpointConfig ->
-            authEndpointConfig
-                .authorizationResponseHandler(((request, response, authentication) -> {}))
-                .errorResponseHandler(((request, response, exception) -> {}))
-                .authenticationProvider(null)
-        );
+//    authorizationServerConfigurer.authorizationEndpoint(
+//        authEndpointConfig ->
+//            authEndpointConfig
+//                .authorizationResponseHandler(((request, response, authentication) -> {}))
+//                .errorResponseHandler(((request, response, exception) -> {}))
+//                .authenticationProvider(null)
+//        );
 
     http
         .requestMatcher(endpointsMatcher)
