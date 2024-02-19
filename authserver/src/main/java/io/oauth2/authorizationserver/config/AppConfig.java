@@ -9,17 +9,21 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.UUID;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
+import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -48,19 +52,27 @@ public class AppConfig {
         .clientSecretExpiresAt(Instant.MAX)
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
-        .clientAuthenticationMethod(ClientAuthenticationMethod.NONE) // for public client
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
         .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
         .redirectUri("http://127.0.0.1:8081")
+        .redirectUri("http://127.0.0.1:8081/login/oauth2/code/springoauth2")
         .scope(OidcScopes.OPENID)
         .scope(OidcScopes.PROFILE)
         .scope(OidcScopes.EMAIL)
         .scope(scope1)
         .scope(scope2)
+        .scope("photo")
+        .scope("friend")
         .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+        .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofSeconds(1L)).build())
 //        .tokenSettings(TokenSettings.builder().reuseRefreshTokens(false).build())
         .build();
+  }
+
+  @Bean
+  public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+    return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
   }
 
   // JWKSource가 구성되어야 있어야

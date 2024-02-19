@@ -12,6 +12,10 @@ public class OAuth2ResourceServer {
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(registry -> registry.anyRequest().authenticated());
+
+
+    // spring.security.oauth2.resourceserver.jwt.jwk-set-uri 가 설정되어 있으면
+    // jwtDecoder bean을 자동 주입해준다
     http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt); // jwt decoder를 실행할 수 있는 api
 
     return http.build();
