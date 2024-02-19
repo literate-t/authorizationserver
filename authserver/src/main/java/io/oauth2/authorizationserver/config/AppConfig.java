@@ -20,7 +20,6 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
-import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -64,11 +63,15 @@ public class AppConfig {
         .build();
   }
 
+  // JWKSource가 구성되어야 있어야
+  // 리소스 서버가 jwk set 정보를 요청했을 때 응답 가능
   @Bean
   public JWKSource<SecurityContext> jwkSource() {
     RSAKey rsaKey = generateRsa();
     JWKSet jwkSet = new JWKSet(rsaKey);
 
+    // NimbusJwkSetEndpointFilter
+    // jwkSet = new JWKSet(this.jwkSource.get(this.jwkSelector, null));
     return (jwkSelector, context) -> jwkSelector.select(jwkSet);
   }
 
