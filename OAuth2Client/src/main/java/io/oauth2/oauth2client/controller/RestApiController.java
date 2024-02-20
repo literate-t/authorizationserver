@@ -1,6 +1,6 @@
 package io.oauth2.oauth2client.controller;
 
-import io.oauth2.oauth2client.token.AccessToken;
+import io.oauth2.sharedobject.AccessToken;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

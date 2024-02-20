@@ -1,4 +1,4 @@
-package io.oauth2.oauth2client.token;
+package io.oauth2.sharedobject;
 
 import lombok.Getter;
 import lombok.Setter;
