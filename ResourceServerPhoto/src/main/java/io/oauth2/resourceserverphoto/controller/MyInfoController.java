@@ -1,9 +1,9 @@
 package io.oauth2.resourceserverphoto.controller;
 
 import io.oauth2.resourceserverphoto.service.PhotoService;
-import io.oauth2.sharedobject.Friend;
-import io.oauth2.sharedobject.MyInfo;
-import io.oauth2.sharedobject.Photo;
+import io.shared.Friend;
+import io.shared.MyInfo;
+import io.shared.Photo;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -31,6 +31,7 @@ public class MyInfoController {
     String url = "http://localhost:8083/friends";
 
     ResponseEntity<List<Friend>> response = restTemplate.exchange(url, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {});
+    List<Friend> friends = response.getBody();
 
     Photo photo1 = PhotoService.getBuild("1", "Album1 title", "Album1 desc");
     Photo photo2 = PhotoService.getBuild("2", "Album2 title", "Album2 desc");

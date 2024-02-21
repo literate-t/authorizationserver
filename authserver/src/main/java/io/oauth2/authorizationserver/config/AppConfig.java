@@ -65,7 +65,7 @@ public class AppConfig {
         .scope("photo")
         .scope("friend")
         .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-        .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofSeconds(1L)).build())
+        .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofSeconds(60L)).build())
 //        .tokenSettings(TokenSettings.builder().reuseRefreshTokens(false).build())
         .build();
   }

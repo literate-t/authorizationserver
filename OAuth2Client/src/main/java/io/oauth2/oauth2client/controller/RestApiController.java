@@ -1,6 +1,6 @@
 package io.oauth2.oauth2client.controller;
 
-import io.oauth2.sharedobject.AccessToken;
+import io.shared.AccessToken;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class RestApiController {
   private final OAuth2AuthorizedClientService auth2AuthorizedClientService;
 
   @GetMapping("/token")
-  public OAuth2AccessToken accessToken(@RegisteredOAuth2AuthorizedClient("springOAuth2")
+  public OAuth2AccessToken accessToken(@RegisteredOAuth2AuthorizedClient("springoauth2")
       OAuth2AuthorizedClient authorizedClient) {
     return authorizedClient.getAccessToken();
   }

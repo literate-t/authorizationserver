@@ -1,7 +1,7 @@
 package io.oauth2.resourceserverphoto.controller;
 
 import io.oauth2.resourceserverphoto.service.PhotoService;
-import io.oauth2.sharedobject.Photo;
+import io.shared.Photo;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

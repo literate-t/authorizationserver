@@ -1,6 +1,6 @@
 package io.oauth2.resourceserverphoto.service;
 
-import io.oauth2.sharedobject.Photo;
+import io.shared.Photo;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package io.oauth2.sharedobject;
+package io.shared;
 
 import java.util.List;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package io.oauth2.resourceserverfriend.controller;
 
-import io.oauth2.sharedobject.Friend;
+import io.shared.Friend;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
